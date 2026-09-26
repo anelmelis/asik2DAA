@@ -1,6 +1,9 @@
 public class DynamicArr {
     private int[] data;
     private int size;
+    private long movements;
+    private long comparisons;
+
     public DynamicArr() {
         data = new int[10];
         size = 0;
@@ -27,11 +30,11 @@ public class DynamicArr {
 
     public boolean contains(int x) {
         for (int i = 0; i < size; i++) {
+            comparisons++;
             if (data[i] == x) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -53,6 +56,10 @@ public class DynamicArr {
         for (int i = size; i > index; i--) {
             data[i] = data[i - 1];
         }
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
+            movements++;
+        }
 
         data[index] = x;
         size++;
@@ -67,6 +74,7 @@ public class DynamicArr {
 
         for (int i = index; i < size - 1; i++) {
             data[i] = data[i + 1];
+            movements++;
         }
 
         size--;
@@ -74,9 +82,19 @@ public class DynamicArr {
         return removed;
     }
 
-
-
     public int getSize() {
         return size;
+    }
+    public long getComparisons() {
+        return comparisons;
+    }
+    public void resetComparisons() {
+        comparisons = 0;
+    }
+    public long getMovements() {
+        return movements;
+    }
+    public void resetMovements() {
+        movements = 0;
     }
 }
