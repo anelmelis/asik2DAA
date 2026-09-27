@@ -7,52 +7,116 @@ public class Benchmark {
 
     public static void main(String[] args) {
         System.out.println("Benchmark started");
+
+        randomAccessBenchmark();
+        searchBenchmark();
         insertionRemovalBenchmark();
+        heapBenchmark();
     }
 
     public static void randomAccessBenchmark() {
+
         Random random = new Random(42);
+
         for (int n : SIZES) {
+
             long arrayTotal = 0;
             long listTotal = 0;
 
+            long arrayAccessTotal = 0;
+            long listAccessTotal = 0;
+
+
             for (int run = 0; run < RUNS; run++) {
+
                 DynamicArr array = new DynamicArr();
                 LinkedList list = new LinkedList();
 
+
                 for (int i = 0; i < n; i++) {
+
                     int value = random.nextInt();
+
                     array.add(value);
                     list.add(value);
                 }
 
                 int[] indices = new int[10000];
+
                 for (int i = 0; i < indices.length; i++) {
                     indices[i] = random.nextInt(n);
                 }
 
+
+
+                array.resetAccesses();
+
                 long start = System.nanoTime();
+
                 for (int index : indices) {
                     array.get(index);
                 }
 
                 long end = System.nanoTime();
+
+
                 arrayTotal += end - start;
+                arrayAccessTotal += array.getAccesses();
+
+
+
+
+                list.resetAccesses();
+
                 start = System.nanoTime();
 
                 for (int index : indices) {
                     list.get(index);
                 }
+
                 end = System.nanoTime();
+
+
                 listTotal += end - start;
+                listAccessTotal += list.getAccesses();
+
             }
 
-            double arrayAverage = arrayTotal / (double) RUNS;
-            double listAverage = listTotal / (double) RUNS;
+
+
+            double arrayAverage =
+                    arrayTotal / (double) RUNS;
+
+            double listAverage =
+                    listTotal / (double) RUNS;
+
+
+            double arrayAccessAverage =
+                    arrayAccessTotal / (double) RUNS;
+
+            double listAccessAverage =
+                    listAccessTotal / (double) RUNS;
+
 
             System.out.println("n = " + n);
-            System.out.println("Dynamic Array: " + arrayAverage + " ns");
-            System.out.println("Linked List: " + listAverage + " ns");
+
+            System.out.println(
+                    "Dynamic Array: "
+                            + arrayAverage
+                            + " ns, accesses = "
+                            + arrayAccessAverage
+            );
+
+
+            System.out.println(
+                    "Linked List: "
+                            + listAverage
+                            + " ns, accesses = "
+                            + listAccessAverage
+            );
+
+
+            System.out.println("-------------------------");
         }
     }
 
@@ -315,4 +379,81 @@ public class Benchmark {
             }
         }
     }
+
+    public static void heapBenchmark() {
+        Random random = new Random(42);
+
+        for (int n : SIZES) {
+            long insertTotal = 0;
+            long extractTotal = 0;
+            long totalComparisons = 0;
+
+            for (int run = 0; run < RUNS; run++) {
+
+                int[] values = new int[n];
+
+                for (int i = 0; i < n; i++) {
+                    values[i] = random.nextInt();
+                }
+
+                MinHeap heap = new MinHeap();
+
+                long start = System.nanoTime();
+
+                for (int value : values) {
+                    heap.insert(value);
+                }
+
+                long end = System.nanoTime();
+
+                insertTotal += end - start;
+
+                heap.resetComparisons();
+
+                start = System.nanoTime();
+
+                int previous = Integer.MIN_VALUE;
+                boolean sorted = true;
+
+                while (heap.getSize() > 0) {
+                    int current = heap.extractMin();
+
+                    if (current < previous) {
+                        sorted = false;
+                    }
+
+                    previous = current;
+                }
+
+                end = System.nanoTime();
+
+                extractTotal += end - start;
+                totalComparisons += heap.getComparisons();
+
+                if (!sorted) {
+                    System.out.println("ERROR: Heap output is not sorted!");
+                }
+            }
+
+            double insertAverage =
+                    insertTotal / (double) RUNS;
+
+            double extractAverage =
+                    extractTotal / (double) RUNS;
+
+            double comparisonAverage =
+                    totalComparisons / (double) RUNS;
+
+            System.out.println("n = " + n);
+            System.out.println(
+                    "Insert: " + insertAverage + " ns");
+
+            System.out.println(
+                    "ExtractMin: " + extractAverage + " ns");
+
+            System.out.println(
+                    "Comparisons: " + comparisonAverage);
+        }
+    }
+
 }

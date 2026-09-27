@@ -3,6 +3,7 @@ public class DynamicArr {
     private int size;
     private long movements;
     private long comparisons;
+    private long accesses;
 
     public DynamicArr() {
         data = new int[10];
@@ -24,7 +25,7 @@ public class DynamicArr {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-
+        accesses++;
         return data[index];
     }
 
@@ -53,9 +54,6 @@ public class DynamicArr {
             data = newData;
         }
 
-        for (int i = size; i > index; i--) {
-            data[i] = data[i - 1];
-        }
         for (int i = size; i > index; i--) {
             data[i] = data[i - 1];
             movements++;
@@ -96,5 +94,11 @@ public class DynamicArr {
     }
     public void resetMovements() {
         movements = 0;
+    }
+    public long getAccesses() {
+        return accesses;
+    }
+    public void resetAccesses() {
+        accesses = 0;
     }
 }

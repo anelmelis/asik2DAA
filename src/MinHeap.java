@@ -1,6 +1,7 @@
 public class MinHeap {
     private int[] heap;
     private int size;
+    private long comparisons;
 
     public MinHeap() {
         heap = new int[10];
@@ -19,7 +20,7 @@ public class MinHeap {
         int current = size - 1;
         while (current > 0) {
             int parent = (current - 1) / 2;
-
+            comparisons++;
             if (heap[parent] <= heap[current]) {
                 break;
             }
@@ -71,12 +72,20 @@ public class MinHeap {
             int right = current * 2 + 2;
             int smallest = current;
 
-            if (left < size && heap[left] < heap[smallest]) {
-                smallest = left;
+            if (left < size) {
+                comparisons++;
+
+                if (heap[left] < heap[smallest]) {
+                    smallest = left;
+                }
             }
 
-            if (right < size && heap[right] < heap[smallest]) {
-                smallest = right;
+            if (right < size) {
+                comparisons++;
+
+                if (heap[right] < heap[smallest]) {
+                    smallest = right;
+                }
             }
 
             if (smallest == current) {
@@ -91,6 +100,13 @@ public class MinHeap {
         }
 
         return min;
+    }
+
+    public long getComparisons() {
+        return comparisons;
+    }
+    public void resetComparisons() {
+        comparisons = 0;
     }
 
 }

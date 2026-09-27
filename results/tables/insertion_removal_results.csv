@@ -1,0 +1,36 @@
+n,Position,Structure,Operation,Time(ns),Movements,Accesses
+100,Beginning,Dynamic Array,Insert,1216380,599500,-
+100,Beginning,Dynamic Array,Remove,67980,4950,-
+100,Beginning,Linked List,Insert,44480,-,0
+100,Beginning,Linked List,Remove,6180,-,0
+100,Middle,Dynamic Array,Insert,1348980,549500,-
+100,Middle,Dynamic Array,Remove,15500,2450,-
+100,Middle,Linked List,Insert,99280,-,51000
+100,Middle,Linked List,Remove,12360,-,2599
+
+1000,Beginning,Dynamic Array,Insert,97820,1499500,-
+1000,Beginning,Dynamic Array,Remove,365700,499500,-
+1000,Beginning,Linked List,Insert,27320,-,0
+1000,Beginning,Linked List,Remove,33320,-,0
+1000,Middle,Dynamic Array,Insert,69980,999500,-
+1000,Middle,Dynamic Array,Remove,49820,249500,-
+1000,Middle,Linked List,Insert,570060,-,501000
+1000,Middle,Linked List,Remove,290280,-,250999
+
+10000,Beginning,Dynamic Array,Insert,490480,10499500,-
+10000,Beginning,Dynamic Array,Remove,403920,9499500,-
+10000,Beginning,Linked List,Insert,17840,-,0
+10000,Beginning,Linked List,Remove,3120,-,0
+10000,Middle,Dynamic Array,Insert,175260,5499500,-
+10000,Middle,Dynamic Array,Remove,148520,4749500,-
+10000,Middle,Linked List,Insert,5593340,-,5001000
+10000,Middle,Linked List,Remove,5290740,-,4751000
+
+100000,Beginning,Dynamic Array,Insert,4589200,100499500,-
+100000,Beginning,Dynamic Array,Remove,4417260,99499500,-
+100000,Beginning,Linked List,Insert,5200,-,0
+100000,Beginning,Linked List,Remove,1420,-,0
+100000,Middle,Dynamic Array,Insert,2206700,50499500,-
+100000,Middle,Dynamic Array,Remove,2319720,49749500,-
+100000,Middle,Linked List,Insert,56638720,-,50001000
+100000,Middle,Linked List,Remove,56340560,-,49751000

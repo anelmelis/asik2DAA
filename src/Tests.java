@@ -8,6 +8,37 @@ public class Tests {
 
     public static void testDynamicArray() {
         DynamicArr arr = new DynamicArr();
+        DynamicArr empty = new DynamicArr();
+        assert empty.getSize() == 0;
+
+        DynamicArr single = new DynamicArr();
+
+        single.add(100);
+
+        assert single.getSize() == 1;
+        assert single.get(0) == 100;
+
+        assert single.remove(0) == 100;
+        assert single.getSize() == 0;
+
+        try {
+            arr.get(-1);
+
+            assert false;
+
+        } catch(IndexOutOfBoundsException e) {
+
+        }
+        try {
+
+            arr.get(100);
+
+            assert false;
+
+        } catch(IndexOutOfBoundsException e) {
+
+        }
+
 
         arr.add(10);
         arr.add(20);

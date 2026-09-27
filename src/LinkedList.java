@@ -33,6 +33,8 @@ public class LinkedList {
     public int getSize() {
         return size;
     }
+
+
     public int get(int index) {
         if (index < 0 || index >= size) {
             throw new java.lang.IndexOutOfBoundsException();
@@ -42,8 +44,9 @@ public class LinkedList {
 
         for (int i = 0; i < index; i++) {
             current = current.next;
+            accesses++;
         }
-
+        accesses++;
         return current.data;
     }
 
@@ -51,6 +54,7 @@ public class LinkedList {
         Node current = head;
 
         while (current != null) {
+            accesses++;
             comparisons++;
             if (current.data == x) {
                 return true;
@@ -75,7 +79,9 @@ public class LinkedList {
                 current = current.next;
                 accesses++;
             }
+            accesses++;
             newNode.next = current.next;
+            accesses++;
             current.next = newNode;
         }
         size++;
@@ -96,9 +102,12 @@ public class LinkedList {
                 current = current.next;
                 accesses++;
             }
+            accesses++;
             removed = current.next.data;
+            accesses++;
             current.next = current.next.next;
         }
+
         size--;
         return removed;
     }
